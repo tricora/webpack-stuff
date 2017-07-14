@@ -1,0 +1,19 @@
+{
+    "name": "tille",
+    "age": 30,
+    "address": {
+        "street": "Musterstraße",
+        "number": "17",
+        "city": "Leipzig",
+        "postalCode": "04275"
+    },
+    "hobbies": [
+        {
+            "name": "badminton",
+            "experience": "23 years"
+        }, {
+            "name": "piano",
+            "experience": "5 years"
+        }
+    ]
+}
