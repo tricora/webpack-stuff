@@ -19,7 +19,9 @@ module.exports = {
                     {
                         loader: 'manipulate-json-loader',
                         options: {
-                            include: true
+                            set: {
+                                '/nice/to': 'know'
+                            }
                         }                        
                     }
                 ]

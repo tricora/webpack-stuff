@@ -1,6 +1,6 @@
 const loader = require('../src/index');
 
-describe('update', () => {
+describe('set', () => {
 
     let sampleObject;
 
@@ -12,7 +12,7 @@ describe('update', () => {
         const func = () => {
             loader.call({
                 query: {
-                    update: 'blub'
+                    set: 'blub'
                 }
             });
         };
@@ -22,11 +22,12 @@ describe('update', () => {
     it('should set additional values to json', () => {
         const result = loader.call({
             query: {
-                update: {
+                set: {
                     '/object': { blub: 'bla' },
                     '/string': 'a string',
                     '/number': 42,
                     '/array': [0, 1, 2],
+                    '/boolean': true,
                     '/null': null
                 }
             }
@@ -38,6 +39,7 @@ describe('update', () => {
             string: 'a string',
             number: 42,
             array: [0, 1, 2],
+            boolean: true,
             null: null,
             key: 'value'
         });
@@ -46,7 +48,7 @@ describe('update', () => {
     it('should set result of function is a function is provided as value', () => {
         const result = loader.call({
             query: {
-                update: {
+                set: {
                     '/new': () => 'new value',
                     '/name': (val) => `${val} hit!`,
                 }

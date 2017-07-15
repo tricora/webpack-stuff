@@ -27,17 +27,17 @@ module.exports = function(source) {
             result = obj;
         }
 
-        if (options.update) {
-            if (typeof options.update !== 'object') {
+        if (options.set) {
+            if (typeof options.set !== 'object') {
                 throw new Error('set options requires object');
             }
-            Object.keys(options.update).forEach((key) => {
-                const val = options.update[key];
+            Object.keys(options.set).forEach((key) => {
+                const val = options.set[key];
                 const type = typeof val;
-                if (val === null || type === 'number' || type === 'string' || type === 'object' || type === 'array') {
+                if (val === null || type === 'number' || type === 'string' || type === 'object' || type === 'array' || type === 'boolean') {
                     ptr.set(result, key, val);
                 } else if (type === 'function') {
-                    const arg = ptr.has(result, key) ? ptr.get(result, key) : undefined;
+                    const arg = ptr.has(obj, key) ? ptr.get(obj, key) : undefined;
                     ptr.set(result, key, val(arg));
                 }
             });
