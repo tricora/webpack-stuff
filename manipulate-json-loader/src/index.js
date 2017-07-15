@@ -4,6 +4,9 @@ const utils = require('./utils');
 
 module.exports = function(source) {
     try {
+        if (!source) {
+            source = {};
+        }
         const obj = typeof source === 'string' ? JSON.parse(source) : source;
 
         const options = loaderUtils.getOptions(this);
@@ -22,6 +25,22 @@ module.exports = function(source) {
             });
         } else {
             result = obj;
+        }
+
+        if (options.update) {
+            if (typeof options.update !== 'object') {
+                throw new Error('set options requires object');
+            }
+            Object.keys(options.update).forEach((key) => {
+                const val = options.update[key];
+                const type = typeof val;
+                if (val === null || type === 'number' || type === 'string' || type === 'object' || type === 'array') {
+                    ptr.set(result, key, val);
+                } else if (type === 'function') {
+                    const arg = ptr.has(result, key) ? ptr.get(result, key) : undefined;
+                    ptr.set(result, key, val(arg));
+                }
+            });
         }
 
         if (options.exclude !== undefined) {

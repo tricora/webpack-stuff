@@ -4,5 +4,3 @@ const path = require('path');
 
 global.expect = chai.expect;
 global.sampleJSON = fs.readFileSync(path.resolve(__dirname, 'data/test.json'), 'utf-8');
-
-beforeEach(() => global.sampleObject = JSON.parse(sampleJSON));

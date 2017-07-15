@@ -18,8 +18,6 @@ function enforceString(val, msg) {
 }
 
 
-
-
 module.exports = {
     toArray,
     isString,

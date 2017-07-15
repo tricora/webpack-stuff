@@ -2,6 +2,12 @@ const loader = require('../src/index');
 
 describe('include', () => {
 
+    let sampleObject;
+
+    beforeEach(() => {
+        sampleObject = JSON.parse(sampleJSON);
+    });
+
     it('should throw an error if non-strings are used for include input', () => {
         expect(() => loader.call({
             query: {

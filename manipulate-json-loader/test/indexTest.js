@@ -2,12 +2,22 @@ const loader = require('../src/index');
 
 describe('manipulate-json-loader', () => {
 
+    let sampleObject;
+
+    beforeEach(() => {
+        sampleObject = JSON.parse(sampleJSON);
+    });
+
     it('should export a function', () => {
         expect(loader).is.a('function');
     });
 
     it('should accept json and object as input', () => {
         expect(loader.call({}, sampleObject)).to.deep.equal(loader.call({}, JSON.stringify(sampleObject)));
+    });
+
+    it('should create empty object if called with undefined input', () => {
+        expect(loader.call({})).to.deep.equal({});
     });
     
     it('should output js object without any options', () => {
