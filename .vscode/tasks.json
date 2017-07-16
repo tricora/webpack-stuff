@@ -17,7 +17,7 @@
         },
         {
             "taskName": "test",
-            "args": ["--prefix", "manipulate-json-loader", "run", "test"],
+            "args": ["--prefix", "modify-json-loader", "run", "test"],
             "isTestCommand": true
         },
         {

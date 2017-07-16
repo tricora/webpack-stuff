@@ -1,6 +1,6 @@
 const loader = require('../src/index');
 
-describe('manipulate-json-loader', () => {
+describe('modify-json-loader', () => {
 
     let sampleObject;
 
@@ -47,4 +47,37 @@ describe('manipulate-json-loader', () => {
             }
         });
     });
+
+    it('should enable caching by default', () => {
+        const spy = sinon.spy(() => {});
+        loader.call({
+            version: 1,
+            cacheable: spy
+        });
+        expect(spy.calledWith()).to.be.true;
+        spy.reset();
+        loader.call({
+            version: 2,
+            cacheable: spy
+        });
+        expect(spy.notCalled).to.be.true;
+    });
+
+    it('should disable caching if disableCaching is set to true', () => {
+        const spy = sinon.spy(() => {});
+        loader.call({
+            version: 1,
+            query: { disableCaching: true },
+            cacheable: spy
+        });
+        expect(spy.notCalled).to.be.true;
+        spy.reset();
+        loader.call({
+            version: 2,
+            query: { disableCaching: true },
+            cacheable: spy
+        });
+        expect(spy.calledWith(false)).to.be.true;
+    });
+
 });

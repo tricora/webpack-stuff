@@ -7,7 +7,7 @@ module.exports = {
     },
     resolveLoader: {
         alias: {
-            'manipulate-json-loader': path.resolve('../manipulate-json-loader/src/index.js')
+            'modify-json-loader': path.resolve('../modify-json-loader/src/index.js')
         }
     },
     module: {
@@ -17,7 +17,7 @@ module.exports = {
                 use: [
                     'json-loader',
                     {
-                        loader: 'manipulate-json-loader',
+                        loader: 'modify-json-loader',
                         options: {
                             set: {
                                 '/nice/to': 'know'

@@ -4,12 +4,29 @@ const utils = require('./utils');
 
 module.exports = function(source) {
     try {
+        const options = loaderUtils.getOptions(this);
+        if (options && options.disableCaching) {
+            console.log('disable')
+            //disable caching
+            if (this.version >= 2 && this.cacheable) {
+                console.log('cacheable(false)')
+                this.cacheable(false);
+            }
+        } else {
+            //enable caching
+            console.log('enable')
+            if (this.version < 2 && this.cacheable) {
+                console.log('cacheable()')
+                this.cacheable();
+            }
+        }
+
         if (!source) {
             source = {};
         }
         const obj = typeof source === 'string' ? JSON.parse(source) : source;
 
-        const options = loaderUtils.getOptions(this);
+
         if (!options) {
             return obj;
         }
@@ -38,13 +55,12 @@ module.exports = function(source) {
                     ptr.set(result, key, val);
                 } else if (type === 'function') {
                     const arg = ptr.has(obj, key) ? ptr.get(obj, key) : undefined;
-                    ptr.set(result, key, val(arg));
+                    ptr.set(result, key, val(arg, obj));
                 }
             });
         }
 
         if (options.exclude !== undefined) {
-            console.log('exclude set');
             utils.toArray(options.exclude).forEach(val => {
                 utils.enforceString(val, 'only string or array of strings are allowed for exclude');
                 if (ptr.has(result, val)) {
@@ -56,6 +72,6 @@ module.exports = function(source) {
         return options.stringified ? JSON.stringify(result) : result;
         
     } catch (error) {
-        throw new Error('manipulate-json-loader: ' + error.message);
+        throw new Error('modify-json-loader: ' + error.message);
     }
 };
