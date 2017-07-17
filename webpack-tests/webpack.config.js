@@ -22,7 +22,7 @@ module.exports = {
                             set: {
                                 '/nice/to': 'know'
                             }
-                        }                        
+                        }
                     }
                 ]
             }
